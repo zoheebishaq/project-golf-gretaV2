@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: html_head"/>
+<body>
+<header th:replace="fragments :: html_navbar"/>
+<div class="container">
+    <h1 class="text-center">Les Trous par parcours</h1>
+
+    <br>
+    <br>
+    <br>
+
+    <div class="accordion" id="accordionExample1">
+        <div class="accordion-item" th:each="g: ${golf}">
+            <h2 class="accordion-header" id="headingOne">
+                <button th:text="'Golf '+${g.nom}" class="accordion-button" type="button" data-bs-toggle="collapse"
+                        th:data-bs-target="'#collapse'+${g.id}" aria-expanded="false" aria-controls="collapseOne">
+
+                </button>
+            </h2>
+            <div th:id="'collapse'+${g.id}" class="accordion-collapse collapse " aria-labelledby="headingOne"
+                 data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item" th:each="p: ${g.parcours}">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button th:text="'Parcours '+${p.nom}+' du Golf '+${p.golf.nom}"
+                                        class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        th:data-bs-target="'#collapse'+${p.id}" aria-expanded="false"
+                                        aria-controls="collapseOne">
+                                </button>
+                            </h2>
+                            <div th:id="'collapse'+${p.id}" class="accordion-collapse collapse "
+                                 aria-labelledby="headingTwo"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <table class="table table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">Num Trou</th>
+                                            <th scope="col">Nom Trou</th>
+                                            <th scope="col">Par</th>
+                                            <th scope="col">Parcours</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="t: ${p.trous}">
+                                            <td th:text="${t.numTrou}"></td>
+                                            <td th:text="${t.nom}"></td>
+                                            <!--                            <td th:text="${t.num_trou}"></td>-->
+                                            <td th:text="${t.par}"></td>
+                                            <td th:text="${t.parcours.nom}"></td>
+
+
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+<!--<footer th:replace="fragments :: html_footer"/>-->
+</html>
+
+
+

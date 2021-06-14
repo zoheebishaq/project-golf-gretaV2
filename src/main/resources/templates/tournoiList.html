@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: html_head"/>
+<body>
+<header th:replace="fragments :: html_navbar"/>
+<div class="container">
+    <h1 class="text-center">Les Tournois</h1>
+
+
+    <br>
+<!--    <div class="input-group mb-3">-->
+<!--        <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon03"><i class="bi bi-search"> </i>-->
+<!--        </button>-->
+<!--        <input type="search" class="form-control" placeholder="Search" id="inputTournoi"-->
+<!--               aria-describedby="inputTournoiSearch" aria-label="Seach">-->
+<!--    </div>-->
+    <br>
+    <div class="accordion" id="accordionPanelsStayOpenExample">
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                        aria-controls="panelsStayOpen-collapseOne">
+                    Tournoi Truc
+                </button>
+            </h2>
+
+            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
+                 aria-labelledby="panelsStayOpen-headingOne">
+                <div class="accordion-body">
+                    <h5>Tour1
+                        <button >Modifier</button>
+                    </h5>
+
+                    <strong>Date :</strong>
+
+                    <strong>Heure :</strong>
+
+                    <strong>Commentaire :</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <a href="" th:href="@{'/tournoi/form'}" class="btn btn-outline-secondary">
+        Ajouter Tournoi </a>
+
+
+</div>
+</body>
+<!--<footer th:replace="fragments :: html_footer"/>-->
+</html>
+
+
+

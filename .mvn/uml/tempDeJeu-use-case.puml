@@ -1,0 +1,46 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+
+
+
+
+left to right direction
+actor "DirecteurTournoi" as dt
+rectangle Tournoi {
+  usecase "Generer cadence de jeu" as UC1
+  usecase "Planifier" as UC2
+  usecase "Commenter un tournoi" as UC3
+}
+
+(UC1) ..> (Importer CSV) : include
+(UC1) ..> (Exporter un PDF) : include
+(UC2) <.. (Creation d'un parcours)  : extends
+(Creation d'un parcours) <.. (Creation d'un golf) : extends
+
+note "Si absence de parcours" as N1
+(Creation d'un parcours) .. N1
+
+note "Si absence de golf" as N2
+(Creation d'un golf) .. N2
+
+
+
+
+dt --> UC1
+dt --> UC2
+dt --> UC3
+
+left to right direction
+actor "Admin" as ad
+rectangle admin {
+  usecase "Gerer les utilisateurs" as adUC1
+  usecase "Gérer les golfs et les parcours et les trous" as adUC2
+
+}
+ad --> adUC1
+ad --> adUC2
+
+
+
+@enduml

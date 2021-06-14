@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="fragments :: html_head"/>
+<body>
+<header th:replace="fragments :: html_navbar"/>
+
+
+<div class="container" sec:authentication="principal.authorities">
+    <div class=" jumbotron jumbotron-fluid">
+        <div class=" border border-light bg-light m-5 p-5 rounded">
+            <p class="lead"> Le nom de l'utilisateur connecté devrait apparaître en dessous </p>
+            <br>
+            <h1 class="display-4" th:inline="text">Bonjour [[${#httpServletRequest.remoteUser}]]!</h1>
+            <br>
+            <h3>Comment allez vous aujourd'hui.</h3>
+        </div>
+    </div>
+</div>
+<!--<form th:action="@{/logout}" method="post">-->
+<!--    <input type="submit"  value="Sign Out"/>-->
+<!--</form>-->
+</body>
+</html>

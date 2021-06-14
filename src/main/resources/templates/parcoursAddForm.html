@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: html_head"/>
+<body>
+<header th:replace="fragments :: html_navbar"/>
+
+<br>
+<br>
+
+<div class="container admin">
+    <h1 class="text-center mb-4">Formulaire de modification de Parcours</h1>
+    <div class="row">
+
+
+        <div class="col-sm-6  mx-auto border bg-white ">
+
+            <form action="#" method="post" th:action="@{/golf/parcours}" th:object="${parcours}" >
+                <input type="hidden" name="id" th:field="*{id}">
+                <input type="hidden" name="id" th:field="*{golfId}">
+                <br>
+                <div class="mb-3">
+                    <label for="nom" class="form-label">Nom de Parcours :</label>
+                    <input type="text" th:field="*{nom}" class="form-control" placeholder="Nom Parcour" required
+                           minlength="2"
+                           id="nom" name="nom">
+
+                    <table>
+                        <theader>
+                            <th>Numero</th>
+                            <th>Nom </th>
+                            <th>Par</th>
+                            <th>Temps</th>
+                        </theader>
+                        <tbody>
+                        <tr th:each="t,itemStat: ${parcours.trous}">
+                            <td><input th:field="*{trous[__${itemStat.index}__].numTrou}" class="form-control" type="number" readonly></td>
+                            <td><input th:field="*{trous[__${itemStat.index}__].nom}"  class="form-control" type="text"></td>
+                            <td><input th:field="*{trous[__${itemStat.index}__].par}"  class="form-control" type="number"></td>
+                            <td><input class="form-control" type="number"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="form-group">
+                    <label>Choix du Golf:</label>
+
+<!--                    <select class="form-control"  id="categoriesId" name="categoriesId">-->
+<!--                        <option th:each="g: ${golf}"-->
+<!--                                th:value="${g.id}"-->
+<!--                                th:text="${g.nom}">-->
+<!--                            th:selected="${g.id} == *{golfId}">-->
+<!--                        </option>-->
+<!--                    </select>-->
+                    <span class="help-inline"></span>
+                </div>
+
+                <div class="form-actions text-center">
+
+                    <button type="submit" value="Valider" class="btn btn-success "><i
+                            class="bi bi-check-circle-fill">&nbsp;
+                        Envoyer</i></button>
+
+                    <br><br><br>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<!--<footer th:replace="fragments :: html_footer"/>-->
+</html>
+
+
+

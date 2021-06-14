@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: html_head"/>
+
+<body>
+<header th:replace="fragments :: html_navbar"/>
+
+<h1 class="text-center">Formulaire</h1>
+<br>
+<br>
+<form action="#" method="post" th:action="@{/admin/form}">
+    <div class="col-sm-4  mx-auto border bg-white ">
+    <div class="container">
+
+
+            <br>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Nom d'utilisateur</label>
+                <input type="text" class="form-control" name="login" required minlength="2"
+                       id="exampleFormControlInput1"
+                       placeholder="name">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" required minlength="5"
+                       id="exampleFormControlInput2"
+                       placeholder="name@example.com">
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Mot de passe</label>
+                <input type="password" class="form-control" name="pass" required minlength="6"
+                       id="exampleFormControlInput3"
+                       placeholder="Mot de passe">
+                <!--        pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,15})$"-->
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Confirmation de mot de passe</label>
+                <input type="password" class="form-control" required minlength="6" name="passConfirm"
+                       id="exampleFormControlInput4" placeholder="Mot de passe">
+            </div>
+            <select class="form-select" name="role" required aria-label="Default select example">
+                <option value="1">Admin</option>
+                <option value="2">Utilisateur</option>
+            </select>
+            <br>
+            <div class="form-actions text-center">
+                <button type="submit" value="Valider" class="btn btn-success"><i class="bi bi-check-circle-fill">&nbsp;
+                    Ajouter</i></button>
+                <!--            <a class="btn btn-primary" th:href="@{'/categorie/'}"> Retour</a>-->
+                <br><br><br>
+            </div>
+            <div> Validation du MDP
+                <ul>
+                    <li> de 8 à 15 caractères</li>
+                    <li> au moins une lettre minuscule</li>
+                    <li> au moins une lettre majuscule</li>
+                    <li> au moins un chiffre</li>
+                    <li> au moins un de ces caractères spéciaux: $ @ % * + - _ !</li>
+                    <li> aucun autre caractère possible: pas de & ni de { par exemple)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!--script   -->
+<script>
+    document.querySelector("form").addEventListener("submit", function (event) {
+        console.log(event);
+        for (const input of event.target.querySelectorAll("form input,form select,form textarea")) {
+
+
+            if (!input.checkValidity()) {
+                event.preventDefault();
+                if (!document.querySelector("#msg" + input.id)) {
+                    input.classList.remove("is-valid");
+                    input.classList.add("is-invalid");
+                    let msg = document.createElement("div");
+                    msg.id = `msg${input.id}`;
+                    msg.classList.add('text-danger');
+                    msg.innerText = input.validationMessage;
+                    input.parentElement.insertBefore(msg, input);
+
+                } else {
+                    document.querySelector("#msg" + input.id).innerText = input.validationMessage;
+                }
+            } else {
+                if (document.querySelector("#msg" + input.id)) {
+                    console.log(input);
+                    input.parentElement.removeChild(document.querySelector("#msg" + input.id));
+                }
+                input.classList.remove("is-invalid");
+                input.classList.add("is-valid");
+            }
+
+        }
+    })
+
+    for (const input of document.querySelectorAll("form input,form select,form textarea")) {
+        input.addEventListener('blur', function () {
+                if (!input.validity.valid) {
+                    if (!input.checkValidity()) {
+                        input.classList.remove("is-valid");
+                        input.classList.add("is-invalid");
+                        if (!document.querySelector("#msg" + input.id)) {
+                            let msg = document.createElement("div");
+                            msg.id = `msg${input.id}`;
+                            msg.classList.add('text-danger');
+                            msg.innerText = input.validationMessage;
+                            input.parentElement.insertBefore(msg, input);
+                        } else {
+                            document.querySelector("#msg" + input.id).innerText = input.validationMessage;
+                        }
+                    }
+                } else {
+                    if (document.querySelector("#msg" + input.id)) {
+                        input.parentElement.removeChild(document.querySelector("#msg" + input.id));
+                    }
+                    input.classList.remove("is-invalid");
+                    input.classList.add("is-valid");
+                }
+            }
+        )
+    }
+</script>
+
+<!--<footer th:replace="fragments :: html_footer"/>-->
+</body>
+</html>

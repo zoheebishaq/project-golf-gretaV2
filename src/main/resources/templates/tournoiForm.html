@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: html_head"/>
+<body>
+<header th:replace="fragments :: html_navbar"/>
+
+<br>
+<br>
+
+<div class="container admin">
+    <h1 class="text-center mb-4">Formulaire de création de tournois</h1>
+    <div class="row">
+
+
+        <div class="col-sm-6  mx-auto border bg-white ">
+
+            <form action="#" method="post" th:action="@{/}">
+
+
+                <br>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Nom tournoi :</label>
+                    <input type="text" class="form-control" name="login" required minlength="2"
+                           id="exampleFormControlInput1"
+                           placeholder="Nom tournoi">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Date de début du tournoi :</label>
+                    <input type="date" class="form-control" name="email" required minlength="5"
+                           id="exampleFormControlInput2"
+                           placeholder="Date de début du tournoi">
+                </div>
+
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Nombre de tours :</label>
+                    <input type="password" class="form-control" name="pass" required minlength="6"
+                           id="exampleFormControlInput3"
+                           placeholder="Nombre de tours">
+                </div>
+
+                <select class="form-select" name="role" required aria-label="Default select example">
+                    <option value="1">Parcou 1</option>
+
+                </select>
+                <br><br>
+                <br>
+                <div class="form-actions text-center">
+
+                    <button type="submit" value="Valider" class="btn btn-success "><i
+                            class="bi bi-check-circle-fill">&nbsp;
+                        Envoyer</i></button>
+
+                    <br><br><br>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<!--<footer th:replace="fragments :: html_footer"/>-->
+</html>
+
+
+

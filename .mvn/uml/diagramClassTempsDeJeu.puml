@@ -1,0 +1,67 @@
+@startuml
+'http://plantuml.com/class-diagram
+object golf{
+id: Long
+nom: String
+coordoGPS: String
+}
+
+
+object parcours{
+id: Long
+nom: nom
+}
+
+object trou {
+id: Long
+numTrou: Integer
+nom:String
+par:Integer
+}
+
+object tournoi{
+id: Long
+dateDebut: Date
+nom: String
+nbTours: Integer
+commentaire: String
+}
+
+object tour {
+id: Long
+date: Date
+nbJoueursPartie: Integer
+numTour: Integer
+heurePremierDepart: LocalTime
+intervalleDepart: Integer
+}
+
+object ajustement{
+id: Long
+tempsAjustement: Integer
+}
+
+object user{
+id: Long
+login: String
+nom: String
+prenom: String
+mail: String
+}
+
+object role{
+id: Long
+nom: String
+}
+
+golf "1" -- "*" parcours
+parcours"1" -- "*" trou
+tournoi "*" --"1" parcours
+tournoi "1"--"*" tour
+tour "1" -- "*" ajustement
+ajustement "*" -- "1" trou
+user "*" -- "*" role
+user "1" -- "*" tournoi
+
+
+@enduml
