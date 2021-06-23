@@ -10,4 +10,5 @@ public class AjustementFormDTO {
     private long id;
     private int tempsAjuste;
     private long tourId;
+    private long trouId;
 }

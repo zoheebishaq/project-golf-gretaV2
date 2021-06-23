@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: html_head"/>
+<body>
+<header th:replace="fragments :: html_navbar"/>
+
+<br>
+<br>
+
+<div class="container admin">
+    <h1 class="text-center mb-4">Formulaire de création de tour</h1>
+    <div class="row">
+
+
+        <div class="col-sm-6  mx-auto border bg-white ">
+
+            <form  method="post" th:action="@{/tournoi/tour}" th:object="${tour}"
+            enctype="multipart/form-data">
+
+                <input type="hidden" name="id" th:field="*{id}">
+                <input type="hidden" name="id" th:field="*{tournoiId}">
+
+                <br>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">num Tour :</label>
+                    <input type="text"  th:field="*{numTour}" class="form-control" name="login" required min="1"
+                           id="exampleFormControlInput1"
+                           placeholder="Nom tournoi">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput2" class="form-label">Date du tour :</label>
+                    <input type="date" th:field="*{date}" class="form-control" name="email" required minlength="5"
+                           id="exampleFormControlInput2"
+                           placeholder="Date de début du tournoi">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput3" class="form-label">Taille equipe :</label>
+                    <input type="number" th:field="*{nbJoueursParPartie}" class="form-control" name="email" required minlength="5"
+                           id="exampleFormControlInput3"
+                           placeholder="Date de début du tournoi">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput4" class="form-label">Intervalle</label>
+                    <input type="number" th:field="*{intervalleDepart}" class="form-control" name="email" required minlength="5"
+                           id="exampleFormControlInput4"
+                           placeholder="Date de début du tournoi">
+                </div>
+                <input type="file" class="form-control" th:field="*{file}">
+                <table>
+                    <theader>
+                        <th>Numero</th>
+
+                        <th>Temps de marche</th>
+                    </theader>
+                    <tbody>
+                    <tr th:each="ajustement,itemStat: ${tour.ajustements}">
+                        <input  type="hidden" th:field="*{ajustements[__${itemStat.index}__].id}">
+                        <input  type="hidden" th:field="*{ajustements[__${itemStat.index}__].trou}">
+<!--                        class="form-control" type="text"-->
+                        <td><input readonly th:field="*{ajustements[__${itemStat.index}__].trou.numTrou}"  ></td>
+                        <td><input th:field="*{ajustements[__${itemStat.index}__].tempsAjuste}" class="form-control" type="number" ></td>
+
+
+                    </tr>
+                    </tbody>
+                </table>
+<!--                <div class="form-group">-->
+<!--                    <label for="exampleFormControlTextarea1">Commentaire</label>-->
+<!--                    <textarea class="form-control" th:field="*{commentaire}" id="exampleFormControlTextarea1" rows="3"></textarea>-->
+<!--                </div>-->
+
+                <!--                <div class="mb-3">-->
+                <!--                    <label for="exampleFormControlInput1" class="form-label">Nombre de tours :</label>-->
+                <!--                    <input type="number" class="form-control" name="pass" required minlength="6"-->
+                <!--                           id="exampleFormControlInput3"-->
+                <!--                           placeholder="Nombre de tours">-->
+                <!--                </div>-->
+
+<!--                <button>Envoyer</button>-->
+
+                <br><br>
+                <br>
+                <div class="form-actions text-center">
+
+                    <button type="submit" value="Valider" class="btn btn-success "><i
+                            class="bi bi-check-circle-fill">&nbsp;
+                        Envoyer</i></button>
+
+                    <br><br><br>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<!--<footer th:replace="fragments :: html_footer"/>-->
+</html>
+
+
+

@@ -6,52 +6,174 @@
 <div class="container">
     <h1 class="text-center">Les Tournois</h1>
 
-
     <br>
-<!--    <div class="input-group mb-3">-->
-<!--        <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon03"><i class="bi bi-search"> </i>-->
-<!--        </button>-->
-<!--        <input type="search" class="form-control" placeholder="Search" id="inputTournoi"-->
-<!--               aria-describedby="inputTournoiSearch" aria-label="Seach">-->
-<!--    </div>-->
+    <div class="btn-group">
+        <a href="" th:href="@{'/tournoi/form'}" class="btn btn-outline-secondary">
+            <i class="bi bi-pencil-square"> Ajouter Tournoi</i> </a>&nbsp;&nbsp;
+    </div>
     <br>
-    <div class="accordion" id="accordionPanelsStayOpenExample">
+    <br>
 
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
-                        aria-controls="panelsStayOpen-collapseOne">
-                    Tournoi Truc
+    <div class="accordion" id="accordionExample">
+
+        <div class="accordion-item" th:each="trn: ${tournoi}">
+            <h2 class="accordion-header" id="headingOne">
+
+
+                <button th:text="'Tournoi '+${trn.nom}" class="accordion-button" type="button" data-bs-toggle="collapse"
+                        th:data-bs-target="'#collapse'+${trn.id}" aria-expanded="false" aria-controls="collapseOne">
                 </button>
             </h2>
 
-            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
-                 aria-labelledby="panelsStayOpen-headingOne">
+            <div th:id="'collapse'+${trn.id}" class="accordion-collapse collapse bg-light bg-gradient "
+                 aria-labelledby="headingOne"
+                 data-bs-parent="#accordionExample">
                 <div class="accordion-body">
-                    <h5>Tour1
-                        <button >Modifier</button>
-                    </h5>
+                    <ul class="list-group ">
+                        <li class="list-group-item list-group-item-action"><h5  th:text="'Date debut : '+${trn.dateDebut}"></h5></li>
+                        <li class="list-group-item list-group-item-action"><h5 th:text="'Nombre de joueur par partie : '+${trn.nbJoueursPartie}"></h5></li>
+                        <li class="list-group-item list-group-item-action"><h5 th:text="'Commentaire : '+${trn.commentaire}"></h5></li>
+                        <li class="list-group-item list-group-item-action"><h5 th:text="'Parcour '+${trn.parcours.nom}+' du Golf '+${trn.parcours.golf.nom}"></h5></li>
 
-                    <strong>Date :</strong>
 
-                    <strong>Heure :</strong>
+                    </ul>
 
-                    <strong>Commentaire :</strong>
+
+                    <div class="btn-group m-3" role="group" aria-label="Basic example">
+
+                        <a class="btn btn-primary " th:href="@{'/tournoi/'+${trn.id}}"><i class="bi bi-pen">Modifier
+                            Tournoi</i></a>
+
+                        <a th:href="@{/tournoi/delete{id}(id=${trn.id})}" class="btn btn-danger"><i
+                                class="bi bi-trash-fill">&nbsp; Supprimer</i></a>
+                    </div>
+
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col ">Num Tour</th>
+                            <th scope="col ">Date Tour</th>
+                            <th scope="col ">Heure Premier Depart</th>
+                            <th scope="col ">Nombre de Joueur</th>
+                            <th scope="col">Action</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!--                        th:each="p: ${g.parcours}"-->
+                        <tr th:each="tr: ${trn.tours}">
+                            <!--                            th:text="${p.nom}"-->
+                            <td th:text="${tr.numTour}" >Tour 1</td>
+                            <td th:text="${tr.date}">01/02/21</td>
+                            <td th:text="${tr.heurePremierDepart}">01/02/21</td>
+                            <td th:text="${tr.nbJoueursParPartie}">100</td>
+
+                            <td>
+                                <!--    aucun rapport                            <div th:text="${p.id}" ></div>-->
+                                <!--                                th:href="@{'/golf/updateParcours/'+${p.id}}"-->
+                                <a class="btn btn-primary " th:href="@{'/tournoi/tour/update/'+${tr.id}}"> <i class="bi bi-pen">Modifier Tour</i></a>
+                                <!--                                th:href="@{/golf/parcours/delete{id}(id=${p.id})}"-->
+                                <a class="btn btn-danger" th:href="@{/tournoi/tour/delete{id}(id=${tr.id})}"><i class="bi bi-trash-fill">&nbsp; Supprimer Tour</i></a>
+
+                            </td>
+
+
+                        </tr>
+
+                        </tbody>
+                    </table>
+                    <!--                    th:href="@{'/golf/parcours/'+${g.id}}"-->
+                    <a href="" th:href="@{'/tournoi/tour/'+${trn.id}}" class="btn btn-outline-secondary">
+                        <i class="bi bi-pencil-square"> Ajouter Tour</i></a>&nbsp;&nbsp;
                 </div>
             </div>
         </div>
+
     </div>
 
-    <br>
-    <a href="" th:href="@{'/tournoi/form'}" class="btn btn-outline-secondary">
-        Ajouter Tournoi </a>
 
+    <!--    <div class="accordion" id="accordionPanelsStayOpenExample">-->
+
+    <!--        <div class="accordion-item" th:each="g: ${golf}">-->
+    <!--            <h2 class="accordion-header" id="panelsStayOpen-headingOne">-->
+    <!--                <button th:text="${g.nom}" class="accordion-button" type="button" data-bs-toggle="collapse"-->
+    <!--                        data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"-->
+    <!--                        aria-controls="panelsStayOpen-collapseOne">-->
+    <!--                </button>-->
+    <!--            </h2>-->
+    <!--            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"-->
+    <!--                 aria-labelledby="panelsStayOpen-headingOne">-->
+    <!--                <div class="accordion-body">-->
+    <!--                    <h5>Parcours 1-->
+    <!--                        <button>Modifier</button>-->
+    <!--                        <button>Supprimer</button>-->
+    <!--                    </h5>-->
+    <!--                    <button>Ajouter Parcours</button>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
 
 </div>
 </body>
 <!--<footer th:replace="fragments :: html_footer"/>-->
 </html>
 
+<!--AUCUN RAPPORT-->
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="fr" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head th:replace="fragments :: html_head"/>-->
+<!--<body>-->
+<!--<header th:replace="fragments :: html_navbar"/>-->
+<!--<div class="container">-->
+
+
+<!--    <br>-->
+<!--&lt;!&ndash;    <div class="input-group mb-3">&ndash;&gt;-->
+<!--&lt;!&ndash;        <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon03"><i class="bi bi-search"> </i>&ndash;&gt;-->
+<!--&lt;!&ndash;        </button>&ndash;&gt;-->
+<!--&lt;!&ndash;        <input type="search" class="form-control" placeholder="Search" id="inputTournoi"&ndash;&gt;-->
+<!--&lt;!&ndash;               aria-describedby="inputTournoiSearch" aria-label="Seach">&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--    <br>-->
+<!--    <div class="accordion" id="accordionPanelsStayOpenExample">-->
+
+<!--        <div class="accordion-item">-->
+<!--            <h2 class="accordion-header" id="panelsStayOpen-headingOne">-->
+<!--                <button class="accordion-button" type="button" data-bs-toggle="collapse"-->
+<!--                        data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"-->
+<!--                        aria-controls="panelsStayOpen-collapseOne">-->
+<!--                    Tournoi Truc-->
+<!--                </button>-->
+<!--            </h2>-->
+
+<!--            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"-->
+<!--                 aria-labelledby="panelsStayOpen-headingOne">-->
+<!--                <div class="accordion-body">-->
+<!--                    <h5>Tour1-->
+<!--                        <button >Modifier</button>-->
+<!--                    </h5>-->
+
+<!--                    <strong>Date :</strong>-->
+
+<!--                    <strong>Heure :</strong>-->
+
+<!--                    <strong>Commentaire :</strong>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <br>-->
+<!--    <a href="" th:href="@{'/tournoi/form'}" class="btn btn-outline-secondary">-->
+<!--        Ajouter Tournoi </a>-->
+
+
+<!--</div>-->
+<!--</body>-->
+<!--&lt;!&ndash;<footer th:replace="fragments :: html_footer"/>&ndash;&gt;-->
+<!--</html>-->
 
 

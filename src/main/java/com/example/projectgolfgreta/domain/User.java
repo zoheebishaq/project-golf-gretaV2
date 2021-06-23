@@ -1,9 +1,11 @@
 package com.example.projectgolfgreta.domain;
 
+import com.example.projectgolfgreta.models.Tournoi;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
 @Setter
@@ -26,6 +28,8 @@ public class User {
     @Basic
     @Column(name = "MAIL", nullable = false, length = 100)
     private String mail;
+    @OneToMany(mappedBy = "user")
+    private Collection<Tournoi> tournoi;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name="USER_GROUP",

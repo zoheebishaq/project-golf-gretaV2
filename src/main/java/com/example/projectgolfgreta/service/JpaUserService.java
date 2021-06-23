@@ -1,7 +1,7 @@
 package com.example.projectgolfgreta.service;
 
-import com.example.projectgolfgreta.dao.GroupRepository;
-import com.example.projectgolfgreta.dao.UserRepository;
+import com.example.projectgolfgreta.dao.securite.GroupRepository;
+import com.example.projectgolfgreta.dao.securite.UserRepository;
 import com.example.projectgolfgreta.domain.Group;
 import com.example.projectgolfgreta.domain.User;
 

@@ -1,7 +1,9 @@
 package com.example.projectgolfgreta.models;
 
+import com.example.projectgolfgreta.domain.User;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -16,29 +18,31 @@ public class Tournoi {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateDebut;
     private String nom;
-    private Integer nbTours;
+//    private int nbTours;
     private String commentaire;
+    private int nbJoueursPartie = 3;
     @OneToMany(mappedBy = "tournoi")
-    private Collection<Tour>tour;
-//    @ManyToOne
-//    User user;
+    private Collection<Tour> tours;
     @ManyToOne
-    Parcours parcours;
+    // a revoire changer user par directeur plus tard car BUG
+    private User user;
+    @ManyToOne
+    private Parcours parcours;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Tournoi tournoi = (Tournoi) o;
-        return id == tournoi.id && dateDebut.equals(tournoi.dateDebut) && nom.equals(tournoi.nom) && nbTours.equals(tournoi.nbTours) && commentaire.equals(tournoi.commentaire);
+        return id == tournoi.id && nbJoueursPartie == tournoi.nbJoueursPartie && dateDebut.equals(tournoi.dateDebut) && nom.equals(tournoi.nom) && commentaire.equals(tournoi.commentaire);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dateDebut, nom, nbTours, commentaire);
+        return Objects.hash(id, dateDebut, nom, commentaire, nbJoueursPartie);
     }
 
     @Override
@@ -47,8 +51,12 @@ public class Tournoi {
                 "id=" + id +
                 ", dateDebut=" + dateDebut +
                 ", nom='" + nom + '\'' +
-                ", nbTours=" + nbTours +
                 ", commentaire='" + commentaire + '\'' +
+                ", nbJoueursPartie=" + nbJoueursPartie +
                 '}';
+    }
+    // a revoire avec Moulin (ATTRIBUT DERIVE)
+    public int nbDeTours(){
+        return this.tours.size();
     }
 }

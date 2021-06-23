@@ -15,19 +15,25 @@ public class Ajustement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private Integer tempsAjuste;
+    private int tempsAjuste;
     @ManyToOne
     private Tour tour;
-    @OneToMany(mappedBy = "ajustement")
-    private Collection<Trou> trou;
+    @ManyToOne
+    private Trou trou;
 
+    public Ajustement() {
+    }
+
+    public Ajustement(Trou trou) {
+        this.trou = trou;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Ajustement that = (Ajustement) o;
-        return id == that.id && tempsAjuste.equals(that.tempsAjuste);
+        return id == that.id && tempsAjuste == that.tempsAjuste;
     }
 
     @Override

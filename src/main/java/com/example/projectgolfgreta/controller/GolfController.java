@@ -21,26 +21,15 @@ import java.util.List;
 @Controller
 public class GolfController {
     private GolfService golfService;
-
     @Autowired
     public GolfController(GolfService golfService) {
         this.golfService = golfService;
     }
 
+    //Index-------------------------------------------------------------------------------------------------------------
     @GetMapping("/")
     public String index() {
         return "hello";
-    }
-
-    //Tournoi-----------------------------------------------------------------------------------------------------------
-    @GetMapping("/tournoi")
-    public String tournoi() {
-        return "tournoiList";
-    }
-
-    @GetMapping("/tournoi/form")
-    public String tournoiform() {
-        return "tournoiForm";
     }
 
     //Golf--------------------------------------------------------------------------------------------------------------
@@ -143,16 +132,6 @@ public class GolfController {
         return "trouList";
     }
 
-    @GetMapping("/trou/form")
-    public String addTrou() {
-        return "trouForm";
-    }
-
-    @GetMapping("trou/delete{id}")
-    public String deleteTrou(@PathVariable(name = "id") Long id) {
-        golfService.deleteTrou(id);
-        return "redirect:/golf";
-    }
 
     @PostMapping("/trou")
     public String postTrou(@ModelAttribute(name = "trou") TrouFormDTO trouFormDTO) {
@@ -160,5 +139,15 @@ public class GolfController {
         return "redirect:/golf/parcours";
     }
 
+//    @GetMapping("/trou/form")
+//    public String addTrou() {
+//        return "trouForm";
+//    }
+
+//    @GetMapping("trou/delete{id}")
+//    public String deleteTrou(@PathVariable(name = "id") Long id) {
+//        golfService.deleteTrou(id);
+//        return "redirect:/golf";
+//    }
 }
 

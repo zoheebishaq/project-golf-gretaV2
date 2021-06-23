@@ -33,9 +33,11 @@
                         </theader>
                         <tbody>
                         <tr th:each="t,itemStat: ${parcours.trous}">
+<!--                            <input  type="hidden" th:field="*{trous[${itemStat.index}].id}">-->
+                            <input  type="hidden" th:field="*{trous[__${itemStat.index}__].id}">
                             <td><input th:field="*{trous[__${itemStat.index}__].numTrou}" class="form-control" type="number" readonly></td>
-                            <td><input class="form-control" type="text"></td>
-                            <td><input class="form-control" type="number"></td>
+                            <td><input th:field="*{trous[__${itemStat.index}__].nom}"  class="form-control" type="text"></td>
+                            <td><input th:field="*{trous[__${itemStat.index}__].par}"  class="form-control" type="number"></td>
                             <td><input class="form-control" type="number"></td>
                         </tr>
                         </tbody>

@@ -1,4 +1,4 @@
-package com.example.projectgolfgreta.dao;
+package com.example.projectgolfgreta.dao.metier;
 
 import com.example.projectgolfgreta.models.Parcours;
 import org.springframework.data.repository.CrudRepository;

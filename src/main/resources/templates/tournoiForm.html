@@ -14,46 +14,59 @@
 
         <div class="col-sm-6  mx-auto border bg-white ">
 
-            <form action="#" method="post" th:action="@{/}">
+                <form action="#" method="post" th:action="@{/tournoi}" th:object="${tournoi}">
+                    <input type="hidden" name="id" th:field="*{id}">
 
+                    <br>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Nom tournoi :</label>
+                        <input type="text" th:field="*{nom}" class="form-control" name="login" required minlength="2"
+                               id="exampleFormControlInput1"
+                               placeholder="Nom tournoi">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput2" class="form-label">Date de début du tournoi :</label>
+                        <input type="date" th:field="*{dateDebut}" class="form-control" name="email" required minlength="5"
+                               id="exampleFormControlInput2"
+                               placeholder="Date de début du tournoi">
+                    </div>
 
-                <br>
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Nom tournoi :</label>
-                    <input type="text" class="form-control" name="login" required minlength="2"
-                           id="exampleFormControlInput1"
-                           placeholder="Nom tournoi">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Date de début du tournoi :</label>
-                    <input type="date" class="form-control" name="email" required minlength="5"
-                           id="exampleFormControlInput2"
-                           placeholder="Date de début du tournoi">
-                </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Commentaire</label>
+                        <textarea class="form-control" th:field="*{commentaire}" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
 
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Nombre de tours :</label>
-                    <input type="password" class="form-control" name="pass" required minlength="6"
-                           id="exampleFormControlInput3"
-                           placeholder="Nombre de tours">
-                </div>
+    <!--                <div class="mb-3">-->
+    <!--                    <label for="exampleFormControlInput1" class="form-label">Nombre de tours :</label>-->
+    <!--                    <input type="number" class="form-control" name="pass" required minlength="6"-->
+    <!--                           id="exampleFormControlInput3"-->
+    <!--                           placeholder="Nombre de tours">-->
+    <!--                </div>-->
 
-                <select class="form-select" name="role" required aria-label="Default select example">
-                    <option value="1">Parcou 1</option>
+                    <div class="form-group">
+                        <label>Parcours :</label>
 
-                </select>
-                <br><br>
-                <br>
-                <div class="form-actions text-center">
+                        <select class="form-control"  id="parcoursId" name="parcoursId">
+                            <option th:each="p: ${parcours}"
+                                    th:value="${p.id}"
+                                    th:text="'Parcours '+${p.nom}+' du Golf '+${p.golf.nom}"
+                                th:selected="${p.id} == *{parcoursId}">
+                            </option>
+                        </select>
+                        <span class="help-inline"></span>
+                    </div>
+                    <br><br>
+                    <br>
+                    <div class="form-actions text-center">
 
-                    <button type="submit" value="Valider" class="btn btn-success "><i
-                            class="bi bi-check-circle-fill">&nbsp;
-                        Envoyer</i></button>
+                        <button type="submit" value="Valider" class="btn btn-success "><i
+                                class="bi bi-check-circle-fill">&nbsp;
+                            Envoyer</i></button>
 
-                    <br><br><br>
-                </div>
+                        <br><br><br>
+                    </div>
 
-            </form>
+                </form>
         </div>
     </div>
 </div>

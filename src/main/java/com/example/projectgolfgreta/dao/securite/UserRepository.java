@@ -1,4 +1,4 @@
-package com.example.projectgolfgreta.dao;
+package com.example.projectgolfgreta.dao.securite;
 
 import com.example.projectgolfgreta.domain.User;
 
