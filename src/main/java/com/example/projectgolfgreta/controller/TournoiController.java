@@ -2,9 +2,13 @@ package com.example.projectgolfgreta.controller;
 
 import com.example.projectgolfgreta.formdata.TourFormDTO;
 import com.example.projectgolfgreta.formdata.TournoiFormDTO;
+import com.example.projectgolfgreta.modelCSV.Equipe;
+import com.example.projectgolfgreta.modelCSV.Joueur;
 import com.example.projectgolfgreta.models.*;
 import com.example.projectgolfgreta.service.GolfService;
+import com.example.projectgolfgreta.service.PdfService;
 import com.example.projectgolfgreta.service.TournoiService;
+import com.itextpdf.text.Document;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +29,17 @@ import java.util.List;
 public class TournoiController {
     private GolfService golfService;
     private TournoiService tournoiService;
+    private PdfService pdfService;
 
     @Autowired
-    public TournoiController(GolfService golfService, TournoiService tournoiService) {
+    public TournoiController(GolfService golfService, TournoiService tournoiService, PdfService pdfService) {
         this.golfService = golfService;
         this.tournoiService = tournoiService;
+        this.pdfService = pdfService;
     }
 
     //Tournoi-----------------------------------------------------------------------------------------------------------
+//    remettre la bonne URL une fois en prod --  /arbitre/tournoi"
     @GetMapping("/tournoi")
     public String tournoi(Model model) {
         model.addAttribute("tournoi", tournoiService.getTournois());
@@ -94,58 +101,88 @@ public class TournoiController {
     }
 
     @GetMapping("/tournoi/tour/update/{id}")
-    public String tourUpdate(Model model,@PathVariable(name = "id") Long id){
+    public String tourUpdate(Model model, @PathVariable(name = "id") Long id) {
         Tour tour = tournoiService.getTour(id);
         TourFormDTO tourFormDTO = new TourFormDTO();
         tourFormDTO.setId(tour.getId());
-        tourFormDTO.setNumTour(tour.getNumTour());
+//        tourFormDTO.setNumTour(tour.getNumTour());
         tourFormDTO.setDate(tour.getDate());
         tourFormDTO.setNbJoueursParPartie(tour.getNbJoueursParPartie());
-        tourFormDTO.setIntervalleDepart(tour.getIntervalleDepart());
+//        tourFormDTO.setIntervalleDepart(tour.getIntervalleDepart());
         tourFormDTO.setTournoiId(tour.getTournoi().getId());
         List<Tournoi> tournoi = tournoiService.getTournois();
         List<Ajustement> ajustements = (List<Ajustement>) tour.getAjustement();
         tourFormDTO.setAjustements(ajustements);
-        model.addAttribute("tournoi",tournoi);
-        model.addAttribute("tour",tourFormDTO);
+        model.addAttribute("tournoi", tournoi);
+        model.addAttribute("tour", tourFormDTO);
 
         return "tourAddForm";
     }
 
     @GetMapping("/tournoi/tour/delete{id}")
-    public String deleteTour(@PathVariable(name = "id") Long id){
+    public String deleteTour(@PathVariable(name = "id") Long id) {
         tournoiService.deleteTour(id);
         return "redirect:/tournoi";
     }
 
 
     @PostMapping("/tournoi/tour")
-    public String postTour(Model model,@ModelAttribute TourFormDTO tourFormDTO){
-        tournoiService.saveTour(tourFormDTO);
+    public String postTour(Model model, @ModelAttribute TourFormDTO tourFormDTO) {
+        Document pdf = new Document();
         // parse CSV file to create a list of `User` objects
-        try (Reader reader = new BufferedReader(new InputStreamReader(tourFormDTO.getFile().getInputStream()))) {
+        try (Reader reader = new BufferedReader(new InputStreamReader(tourFormDTO.getFile().getInputStream(), "utf-16"))) {
 
             // create csv bean reader
-            CsvToBean<Equipe> csvToBean = new CsvToBeanBuilder(reader)
-                    .withType(Equipe.class)
+            CsvToBean<Joueur> csvToBean = new CsvToBeanBuilder(reader)
+                    .withType(Joueur.class)
                     .withIgnoreLeadingWhiteSpace(true)
+                    .withIgnoreQuotations(true)
+                    .withSkipLines(1)
                     .build();
 
             // convert `CsvToBean` object to list of users
-            List<Equipe> equipes = csvToBean.parse();
+            List<Joueur> joueurs = csvToBean.parse();
+            String numEquipe = "";
+            String heure = "";
+            List<Equipe> equipes = new ArrayList<Equipe>();
+            Equipe equipe = new Equipe();
+            for (Joueur joueur : joueurs
+            ) {
+                if (!joueur.getNum().equals("")) {
+                    numEquipe = joueur.getNum();
+                    heure = joueur.getDepart();
+                    equipe = new Equipe(numEquipe, heure, new ArrayList<Joueur>());
+                    equipes.add(equipe);
+                }
+                joueur.setNum(numEquipe);
+                joueur.setDepart(heure);
+                equipe.getJoueurs().add(joueur);
+            }
+            Tour tour = tournoiService.saveTour(tourFormDTO);
+            for (Equipe equipeA : equipes) {
 
-            // TODO: save users in DB?
+                tournoiService.generateCadence(equipeA, tour);
+            }
+            pdf = pdfService.generatePdf(equipes, tour);
 
-            // save users list on model
-//            model.addAttribute("users", users);
-//            model.addAttribute("status", true);
+//            System.out.println("apres csvToBean");
+//
+//            // save users list on model
+////            model.addAttribute("users", users);
+////            model.addAttribute("status", true);
 
         } catch (Exception ex) {
             model.addAttribute("message", "An error occurred while processing the CSV file.");
             System.out.println("An error occurred while processing the CSV file.");
+            System.out.println(ex.getMessage());
+            System.out.println(ex.getCause());
+            ex.printStackTrace();
             model.addAttribute("status", false);
+
         }
+
         return "redirect:/tournoi";
     }
+
 }
 

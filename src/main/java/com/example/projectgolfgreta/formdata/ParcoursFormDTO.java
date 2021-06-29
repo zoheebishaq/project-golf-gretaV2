@@ -3,6 +3,7 @@ package com.example.projectgolfgreta.formdata;
 import com.example.projectgolfgreta.models.Trou;
 import lombok.Getter;
 import lombok.Setter;
+import org.jsoup.Jsoup;
 
 import java.util.Collection;
 import java.util.List;
@@ -16,8 +17,13 @@ public class ParcoursFormDTO {
 
     private List<Trou> trous;
 
-    public void addTrou(Trou trou)
-    {
-        this.trous.add(trou);
+    public void setNom(String nom) {
+        this.nom = Jsoup.parse(nom).text();
     }
+
+//    public void addTrou(Trou trou)
+//    {
+//        this.trous.add(trou);
+//    }
+
 }

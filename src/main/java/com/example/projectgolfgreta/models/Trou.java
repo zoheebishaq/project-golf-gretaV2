@@ -1,6 +1,4 @@
 package com.example.projectgolfgreta.models;
-
-
 import lombok.Getter;
 import lombok.Setter;
 

@@ -77,7 +77,7 @@ public class GolfController {
         parcoursFormDTO.setGolfId(idGolf);
         List<Trou> trou = new ArrayList<Trou>();
         for (int i = 0; i < 18; i++) {
-            trou.add(new Trou(i));
+            trou.add(new Trou(i+1));
         }
         parcoursFormDTO.setTrous(trou);
         model.addAttribute("parcours",parcoursFormDTO);

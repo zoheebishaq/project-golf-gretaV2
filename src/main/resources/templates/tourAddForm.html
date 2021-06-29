@@ -8,7 +8,7 @@
 <br>
 
 <div class="container admin">
-    <h1 class="text-center mb-4">Formulaire de création de tour</h1>
+    <h1 class="text-center mb-4">Formulaire de tour</h1>
     <div class="row">
 
 
@@ -21,12 +21,12 @@
                 <input type="hidden" name="id" th:field="*{tournoiId}">
 
                 <br>
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">num Tour :</label>
-                    <input type="text"  th:field="*{numTour}" class="form-control" name="login" required min="1"
-                           id="exampleFormControlInput1"
-                           placeholder="Nom tournoi">
-                </div>
+<!--                <div class="mb-3">-->
+<!--                    <label for="exampleFormControlInput1" class="form-label">num Tour :</label>-->
+<!--                    <input type="text"  th:field="*{numTour}" class="form-control" name="login" required min="1"-->
+<!--                           id="exampleFormControlInput1"-->
+<!--                           placeholder="Nom tournoi">-->
+<!--                </div>-->
                 <div class="mb-3">
                     <label for="exampleFormControlInput2" class="form-label">Date du tour :</label>
                     <input type="date" th:field="*{date}" class="form-control" name="email" required minlength="5"
@@ -39,12 +39,12 @@
                            id="exampleFormControlInput3"
                            placeholder="Date de début du tournoi">
                 </div>
-                <div class="mb-3">
-                    <label for="exampleFormControlInput4" class="form-label">Intervalle</label>
-                    <input type="number" th:field="*{intervalleDepart}" class="form-control" name="email" required minlength="5"
-                           id="exampleFormControlInput4"
-                           placeholder="Date de début du tournoi">
-                </div>
+<!--                <div class="mb-3">-->
+<!--                    <label for="exampleFormControlInput4" class="form-label">Intervalle</label>-->
+<!--                    <input type="number" th:field="*{intervalleDepart}" class="form-control" name="email" required minlength="5"-->
+<!--                           id="exampleFormControlInput4"-->
+<!--                           placeholder="Date de début du tournoi">-->
+<!--                </div>-->
                 <input type="file" class="form-control" th:field="*{file}">
                 <table>
                     <theader>
@@ -57,8 +57,8 @@
                         <input  type="hidden" th:field="*{ajustements[__${itemStat.index}__].id}">
                         <input  type="hidden" th:field="*{ajustements[__${itemStat.index}__].trou}">
 <!--                        class="form-control" type="text"-->
-                        <td><input readonly th:field="*{ajustements[__${itemStat.index}__].trou.numTrou}"  ></td>
-                        <td><input th:field="*{ajustements[__${itemStat.index}__].tempsAjuste}" class="form-control" type="number" ></td>
+                        <td><input readonly th:field="*{ajustements[__${itemStat.index}__].trou.numTrou}" class="form-control"  ></td>
+                        <td ><input th:field="*{ajustements[__${itemStat.index}__].tempsAjuste}" class="form-control" type="number" ></td>
 
 
                     </tr>

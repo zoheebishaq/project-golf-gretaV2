@@ -2,6 +2,7 @@ package com.example.projectgolfgreta.formdata;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.jsoup.Jsoup;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -18,4 +19,12 @@ public class TournoiFormDTO {
     private String commentaire;
     private long userId;
     private long parcoursId;
+
+    public void setNom(String nom) {
+        this.nom = Jsoup.parse(nom).text();
+    }
+
+    public void setCommentaire(String commentaire) {
+        this.commentaire = Jsoup.parse(commentaire).text() ;
+    }
 }

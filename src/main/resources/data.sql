@@ -219,4 +219,4 @@ insert into trou (id, nom, num_trou, par, parcours_id) values (198, null, 18, 4,
 
 INSERT INTO groups (id, name,role ) VALUES
 (1, 'admin','ADMIN'),
-(2, 'user','USER');
+(2, 'arbitre','ARBITRE');
