@@ -139,15 +139,6 @@ public class GolfController {
         return "redirect:/golf/parcours";
     }
 
-//    @GetMapping("/trou/form")
-//    public String addTrou() {
-//        return "trouForm";
-//    }
 
-//    @GetMapping("trou/delete{id}")
-//    public String deleteTrou(@PathVariable(name = "id") Long id) {
-//        golfService.deleteTrou(id);
-//        return "redirect:/golf";
-//    }
 }
 

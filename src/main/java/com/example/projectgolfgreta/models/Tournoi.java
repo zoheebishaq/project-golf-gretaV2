@@ -10,10 +10,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Objects;
 
-@Getter
-@Setter
-@Entity
-@Table
+@Getter @Setter @Entity @Table
 public class Tournoi {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

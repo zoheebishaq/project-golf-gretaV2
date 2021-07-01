@@ -10,8 +10,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import org.springframework.stereotype.Service;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -70,4 +69,6 @@ public class PdfService {
                 });
 
     }
+
+//    InputStream inputStream = new FileInputStream(new File());
 }
