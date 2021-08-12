@@ -14,7 +14,5 @@ public class TrouFormDTO {
     private long parcoursId;
     private long ajustmentId;
 
-    public void setNom(String nom) {
-        this.nom = Jsoup.parse(nom).text();
-    }
+
 }

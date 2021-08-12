@@ -64,5 +64,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorities("ADMIN","ARBITRE");
         auth.userDetailsService(jpaUserDetailsService).passwordEncoder(bCryptPasswordEncoder());
     }
-
 }

@@ -8,7 +8,7 @@
 
     <br>
     <div class="btn-group">
-        <!--      URL PROD Gestion role     /arbitre/tournoi/form-->
+        <!--      URI PROD Gestion role     /arbitre/tournoi/form-->
         <a href="" th:href="@{'/tournoi/form'}" class="btn btn-outline-secondary">
             <i class="bi bi-pencil-square"> Ajouter Tournoi</i> </a>&nbsp;&nbsp;
     </div>
@@ -44,8 +44,8 @@
 
                         <a class="btn btn-primary " th:href="@{'/tournoi/'+${trn.id}}"><i class="bi bi-pen">Modifier
                             Tournoi</i></a>
-
-                        <a th:href="@{/arbitre/tournoi/delete{id}(id=${trn.id})}" class="btn btn-danger"><i
+<!--                        /arbitre-->
+                        <a th:href="@{/tournoi/delete{id}(id=${trn.id})}" class="btn btn-danger"><i
                                 class="bi bi-trash-fill">&nbsp; Supprimer</i></a>
                     </div>
 
@@ -73,11 +73,11 @@
                                 <!--    aucun rapport                            <div th:text="${p.id}" ></div>-->
 
 
-<!--                                          URL PROD Gestion role      /arbitre/tournoi/tour/update/'+${tr.id}}-->
+<!--                                          URI PROD Gestion role      /arbitre/tournoi/tour/update/'+${tr.id}}-->
                                 <a class="btn btn-primary " th:href="@{'/tournoi/tour/update/'+${tr.id}}"> <i class="bi bi-pen">Modifier Tour</i></a>
                                 <!--                                th:href="@{/golf/parcours/delete{id}(id=${p.id})}"-->
 
-                                <!--      URL PROD Gestion role      /arbitre/tournoi/tour/delete{id}(id=${tr.id})}-->
+                                <!--      URI PROD Gestion role      /arbitre/tournoi/tour/delete{id}(id=${tr.id})}-->
                                 <a class="btn btn-danger" th:href="@{/tournoi/tour/delete{id}(id=${tr.id})}"><i class="bi bi-trash-fill">&nbsp; Supprimer Tour</i></a>
 
                             </td>
@@ -89,7 +89,7 @@
                     </table>
 
 
-                    <!-- URL PROD Gestion role   /arbitre/tournoi/tour/'+${trn.id}}-->
+                    <!-- URI PROD Gestion role   /arbitre/tournoi/tour/'+${trn.id}}-->
                     <a href="" th:href="@{'/tournoi/tour/'+${trn.id}}" class="btn btn-outline-secondary">
                         <i class="bi bi-pencil-square"> Ajouter Tour</i></a>&nbsp;&nbsp;
                 </div>

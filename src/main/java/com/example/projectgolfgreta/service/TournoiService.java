@@ -5,14 +5,19 @@ import com.example.projectgolfgreta.formdata.TourFormDTO;
 import com.example.projectgolfgreta.formdata.TournoiFormDTO;
 import com.example.projectgolfgreta.modelCSV.Cadence;
 import com.example.projectgolfgreta.modelCSV.Equipe;
-import com.example.projectgolfgreta.models.*;
+import com.example.projectgolfgreta.models.Ajustement;
+import com.example.projectgolfgreta.models.Parcours;
+import com.example.projectgolfgreta.models.Tour;
+import com.example.projectgolfgreta.models.Tournoi;
 import com.google.common.collect.Lists;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class TournoiService {
@@ -47,15 +52,15 @@ public class TournoiService {
         return tournoiRepository.findById(id).orElse(new Tournoi());
     }
 
-    public void deleteTournois(Long id){
+    public void deleteTournois(Long id) {
         List<Tour> tours = tourRepository.findTourByTournoi_Id(id);
-        for (Tour tour : tours){
+        for (Tour tour : tours) {
             deleteTour(tour.getId());
         }
         tournoiRepository.deleteById(id);
     }
 
-    public void saveTournoi(TournoiFormDTO tournoiFormDTO){
+    public void saveTournoi(TournoiFormDTO tournoiFormDTO) {
         Tournoi tournoiDB = tournoiRepository.findById(tournoiFormDTO.getId()).orElse(new Tournoi());
         tournoiDB.setNom(tournoiFormDTO.getNom());
         tournoiDB.setDateDebut(tournoiFormDTO.getDateDebut());
@@ -76,7 +81,7 @@ public class TournoiService {
         return tourRepository.findById(id).orElse(new Tour());
     }
 
-    public void deleteTour(Long id){
+    public void deleteTour(Long id) {
 
         List<Ajustement> ajustement = ajustmentRepository.findByTour_Id(id);
         for (Ajustement ajustements : ajustement) {
@@ -86,7 +91,7 @@ public class TournoiService {
         tourRepository.deleteById(id);
     }
 
-    public Tour saveTour(TourFormDTO tourFormDTO){
+    public Tour saveTour(TourFormDTO tourFormDTO) {
         Tour tourDB = new Tour();
         tourDB.setId(tourFormDTO.getId());
 //        tourDB.setIntervalleDepart(tourFormDTO.getIntervalleDepart());
@@ -94,7 +99,7 @@ public class TournoiService {
 //        tourDB.setNumTour(tourFormDTO.getNumTour());
         tourDB.setNbJoueursParPartie(tourFormDTO.getNbJoueursParPartie());
         tourDB.setTournoi(tournoiRepository.findById(tourFormDTO.getTournoiId()).get());
-        for (Ajustement ajustement:tourFormDTO.getAjustements()) {
+        for (Ajustement ajustement : tourFormDTO.getAjustements()) {
             ajustement.setTour(tourDB);
         }
         tourDB.setAjustement(tourFormDTO.getAjustements());
@@ -102,8 +107,10 @@ public class TournoiService {
         ajustmentRepository.saveAll(tourDB.getAjustement());
         return tourDB;
     }
+    //------------------------------------------------------------------------------------------------------------------
+    //PB d'Algo les données ne sont pas toute bonne
 
-//    public void generateCadence(Equipe equipe ,Tour tour) throws ParseException {
+    //    public void generateCadence(Equipe equipe ,Tour tour) throws ParseException {
 //        List<Cadence> cadences = new ArrayList<Cadence>();
 //        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH'h'MM");
 //        Date jour  =  tour.getDate();
@@ -138,46 +145,41 @@ public class TournoiService {
 //        equipe.setCadences(cadences);
 //
 //    }
-public List<Cadence> generateCadence(Equipe equipe,Tour tour) throws ParseException {
-    List<Cadence> cadenceArrayList= new ArrayList<Cadence>();
-    SimpleDateFormat simpleDateFormat= new SimpleDateFormat("HH'h'mm");
-    Date jour= tour.getDate();
-    Calendar calendar = Calendar. getInstance();
-    calendar.setTime(jour);
-    calendar.getTimeZone().getDisplayName();
-    for (Ajustement ajustement:tour.getAjustement()
-    ) {
-        Date d0;
-        int tempsStandar;
-        if(ajustement.getTrou().getPar()==3)
-        {
-            tempsStandar=11;
-        }
-        else if(ajustement.getTrou().getPar()==4)
-        {
-            tempsStandar=14;
-        }
-        else {
-            tempsStandar=17;
-        }
-        if(cadenceArrayList.size()==0)
-        {
-            d0=jour;
-            Date time=simpleDateFormat.parse(equipe.getHeure());
-            calendar.add(Calendar.HOUR,time.getHours());
-            calendar.add(Calendar.MINUTE,time.getMinutes()+ajustement.getTempsAjuste()+tempsStandar);
-        }
-        else{
-            d0=cadenceArrayList.get(cadenceArrayList.size()-1).getDate();
-            calendar.add(Calendar.MINUTE,ajustement.getTempsAjuste()+tempsStandar);
 
+    public List<Cadence> generateCadence(Equipe equipe, Tour tour) throws ParseException {
+        List<Cadence> cadenceArrayList = new ArrayList<Cadence>();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH'h'mm");
+        Date jour = tour.getDate();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(jour);
+        calendar.getTimeZone().getDisplayName();
+        for (Ajustement ajustement : tour.getAjustement()
+        ) {
+            Date d0;
+            int tempsStandar;
+            if (ajustement.getTrou().getPar() == 3) {
+                tempsStandar = 11;
+            } else if (ajustement.getTrou().getPar() == 4) {
+                tempsStandar = 14;
+            } else {
+                tempsStandar = 17;
+            }
+            if (cadenceArrayList.size() == 0) {
+                d0 = jour;
+                Date time = simpleDateFormat.parse(equipe.getHeure());
+                calendar.add(Calendar.HOUR, time.getHours());
+                calendar.add(Calendar.MINUTE, time.getMinutes() + ajustement.getTempsAjuste() + tempsStandar);
+            } else {
+                d0 = cadenceArrayList.get(cadenceArrayList.size() - 1).getDate();
+                calendar.add(Calendar.MINUTE, ajustement.getTempsAjuste() + tempsStandar);
+
+            }
+            Cadence cadence = new Cadence(ajustement, calendar.getTime());
+            cadenceArrayList.add(cadence);
         }
-        Cadence cadence = new Cadence(ajustement,calendar.getTime());
-        cadenceArrayList.add(cadence);
+        equipe.setCadences(cadenceArrayList);
+        return cadenceArrayList;
     }
-    equipe.setCadences(cadenceArrayList);
-    return cadenceArrayList;
-}
 
     public void deleteAjustement(long id) {
         ajustmentRepository.deleteById(id);

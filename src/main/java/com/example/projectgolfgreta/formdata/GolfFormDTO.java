@@ -10,8 +10,6 @@ public class GolfFormDTO {
     private long id;
     private String nom;
     private String coordGPS;
+//Jsoup.parse().text()
 
-    public void setNom(String nom) {
-        this.nom = Jsoup.parse(nom).text();
-    }
 }

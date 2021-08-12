@@ -10,9 +10,9 @@ import java.util.Date;
 @Setter
 public class TournoiFormDTO {
     private long id;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-//    Failed to convert from type [java.lang.String] to type [java.util.Date] for value
+    //    Failed to convert from type [java.lang.String] to type [java.util.Date] for value
 //    https://stackoverflow.com/questions/23702041/failed-to-convert-property-value-of-type-java-lang-string-to-required-type-java
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateDebut;
     private String nom;
     private int nbTours;
@@ -20,11 +20,5 @@ public class TournoiFormDTO {
     private long userId;
     private long parcoursId;
 
-    public void setNom(String nom) {
-        this.nom = Jsoup.parse(nom).text();
-    }
 
-    public void setCommentaire(String commentaire) {
-        this.commentaire = Jsoup.parse(commentaire).text() ;
-    }
 }

@@ -21,6 +21,7 @@ import java.util.List;
 @Controller
 public class GolfController {
     private GolfService golfService;
+
     @Autowired
     public GolfController(GolfService golfService) {
         this.golfService = golfService;
@@ -77,10 +78,10 @@ public class GolfController {
         parcoursFormDTO.setGolfId(idGolf);
         List<Trou> trou = new ArrayList<Trou>();
         for (int i = 0; i < 18; i++) {
-            trou.add(new Trou(i+1));
+            trou.add(new Trou(i + 1));
         }
         parcoursFormDTO.setTrous(trou);
-        model.addAttribute("parcours",parcoursFormDTO);
+        model.addAttribute("parcours", parcoursFormDTO);
         return "parcoursAddForm";
     }
 
@@ -128,7 +129,7 @@ public class GolfController {
     public String trou(Model model) {
         model.addAttribute("trou", golfService.getTrous());
         model.addAttribute("parcours", golfService.geParcours());
-        model.addAttribute("golf",golfService.getGolfs());
+        model.addAttribute("golf", golfService.getGolfs());
         return "trouList";
     }
 

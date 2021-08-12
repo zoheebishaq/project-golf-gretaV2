@@ -17,9 +17,7 @@ public class ParcoursFormDTO {
 
     private List<Trou> trous;
 
-    public void setNom(String nom) {
-        this.nom = Jsoup.parse(nom).text();
-    }
+    //Jsoup.parse().text()
 
 //    public void addTrou(Trou trou)
 //    {

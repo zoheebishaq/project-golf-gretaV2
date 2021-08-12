@@ -12,12 +12,16 @@ import com.itextpdf.text.Document;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -179,25 +183,6 @@ public class TournoiController {
 
         return "redirect:/tournoi";
     }
-
-    //TODO
-//    A FINIR AU PLUS VITE
-
-//    @GetMapping(value = "/pdf/export", produces = MediaType.APPLICATION_PDF_VALUE)  // pdf
-//    public @ResponseBody
-//    byte[]
-//    pdf(@PathVariable("id") Long id) throws FileNotFoundException {
-//
-//        InputStream inputStream = new FileInputStream(new File("/sample.pdf"));
-//        byte[] pdf = null;                                                         // important
-//        try {
-//            pdf = IOUtils.toByteArray(is);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return pdf;
-//
-//    }
 
 }
 

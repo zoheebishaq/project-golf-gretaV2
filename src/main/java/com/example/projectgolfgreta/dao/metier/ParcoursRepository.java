@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ParcoursRepository extends CrudRepository<Parcours,Long> {
 
-    public List<Parcours> findParcoursByGolf_Id(Long id);
+     List<Parcours> findParcoursByGolf_Id(Long id);
 }
