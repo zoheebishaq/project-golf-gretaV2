@@ -107,44 +107,7 @@ public class TournoiService {
         ajustmentRepository.saveAll(tourDB.getAjustement());
         return tourDB;
     }
-    //------------------------------------------------------------------------------------------------------------------
-    //PB d'Algo les données ne sont pas toute bonne
 
-    //    public void generateCadence(Equipe equipe ,Tour tour) throws ParseException {
-//        List<Cadence> cadences = new ArrayList<Cadence>();
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH'h'MM");
-//        Date jour  =  tour.getDate();
-//        TimeZone timeZone = TimeZone.getDefault() ;
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.setTimeZone(timeZone);
-//        calendar.setTime(jour);
-//        System.out.println(calendar.getTimeZone().getDisplayName());
-//        for (Ajustement ajustement:tour.getAjustement()
-//             ) {
-//            Date d0;
-//            int tempsStandar=11;
-//            if (ajustement.getTrou().getPar()==4){
-//                tempsStandar=14;
-//            }
-//            else if(ajustement.getTrou().getPar()==5){
-//                tempsStandar=17;
-//            }
-//            if (cadences.size()==0){
-//                d0=jour;
-//                Date time= simpleDateFormat.parse(equipe.getHeure());
-//                calendar.add(Calendar.HOUR,time.getHours());
-//                calendar.add(Calendar.MINUTE,time.getMinutes()+ajustement.getTempsAjuste()+tempsStandar);
-//            }
-//            else{
-//                d0=cadences.get(cadences.size()-1).getDate();
-//                calendar.add(Calendar.MINUTE,ajustement.getTempsAjuste()+tempsStandar);
-//            }
-//            Cadence cadence = new Cadence(ajustement,equipe,calendar.getTime());
-//            cadences.add(cadence);
-//        }
-//        equipe.setCadences(cadences);
-//
-//    }
 
     public List<Cadence> generateCadence(Equipe equipe, Tour tour) throws ParseException {
         List<Cadence> cadenceArrayList = new ArrayList<Cadence>();
